@@ -1,0 +1,9 @@
+package com.example.jwttokenpractice.auth.dto;
+
+import lombok.Data;
+
+@Data
+public class SigninRequestDto {
+    private String username;
+    private String password;
+}
