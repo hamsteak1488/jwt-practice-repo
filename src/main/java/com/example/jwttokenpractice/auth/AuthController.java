@@ -3,7 +3,6 @@ package com.example.jwttokenpractice.auth;
 import com.example.jwttokenpractice.jwt.Jwt;
 import com.example.jwttokenpractice.auth.dto.SigninRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

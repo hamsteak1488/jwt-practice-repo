@@ -1,11 +1,15 @@
 package com.example.jwttokenpractice.jwt;
 
+import com.example.jwttokenpractice.auth.RSAKeyManager;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.SecretKeyAlgorithm;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +24,7 @@ public class JwtProvider {
     public static final byte[] secret = "jm_secret_key12345678901234567890".getBytes();
 
     // HMAC-SHA 알고리즘
-    private final Key key = Keys.hmacShaKeyFor(secret);
+    private final Key hmacShaKey = Keys.hmacShaKeyFor(secret);
 
     public Jwt createJwt(Map<String, Object> claims) {
         String accessToken = createToken(claims, getExpireDateAccessToken());
@@ -32,16 +36,18 @@ public class JwtProvider {
     }
 
     public String createToken(Map<String, Object> claims, Date expireDate) {
+        PrivateKey privateKey = RSAKeyManager.loadPrivateKey(RSAKeyManager.PRIVATE_KEY_FILE);
         return Jwts.builder()
                 .claims(claims)
                 .expiration(expireDate)
-                .signWith(key)
+                .signWith(privateKey)
                 .compact();
     }
 
     public Claims getClaims(String token) {
+        PublicKey publicKey = RSAKeyManager.loadPublicKey(RSAKeyManager.PUBLIC_KEY_FILE);
         return (Claims) Jwts.parser()
-                .verifyWith((SecretKey) key)
+                .verifyWith(publicKey)
                 .build()
                 .parse(token)
                 .getPayload();
