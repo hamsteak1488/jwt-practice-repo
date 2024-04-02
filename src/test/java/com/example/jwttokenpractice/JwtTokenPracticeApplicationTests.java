@@ -5,6 +5,7 @@ import com.example.jwttokenpractice.jwt.JwtProvider;
 import io.jsonwebtoken.Claims;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
@@ -15,9 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class JwtTokenPracticeApplicationTests {
 
-	private final JwtProvider jwtProvider = new JwtProvider();
+	@Autowired
+	private final JwtProvider jwtProvider;
 
-	@Test
+    JwtTokenPracticeApplicationTests(JwtProvider jwtProvider) {
+        this.jwtProvider = jwtProvider;
+    }
+
+    @Test
 	@DisplayName("JWT 토큰 테스트")
 	void JwtTest() {
 		Map<String, Object> claims = new HashMap<>();
