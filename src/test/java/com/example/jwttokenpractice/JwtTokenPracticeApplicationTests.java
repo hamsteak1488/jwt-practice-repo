@@ -40,4 +40,10 @@ class JwtTokenPracticeApplicationTests {
 			System.out.println("key = " + key + ", val = " + claimsResult.get(key));
 		}
 	}
+
+	@Test
+	@DisplayName("액세스 토큰 만료 테스트")
+	void accessTokenExpirationTest() {
+
+	}
 }

@@ -1,15 +1,18 @@
 package com.example.jwttokenpractice.jwt;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 
-public class MemoryRefreshTokenManager {
+@Component
+public class MemoryRefreshTokenManager implements RefreshTokenManager {
     HashMap<String, String> store = new HashMap<>();
 
-    void putRefreshToken(String accessToken, String refreshToken) {
+    public void putRefreshToken(String accessToken, String refreshToken) {
         store.put(accessToken, refreshToken);
     }
 
-    String getRefreshToken(String accessToken) {
+    public String getRefreshToken(String accessToken) {
         return store.get(accessToken);
     }
 }

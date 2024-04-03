@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 @Component
 @RequiredArgsConstructor
 public class AuthenticationInterceptor implements HandlerInterceptor {
@@ -29,6 +32,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
         String token = authorizationHeader.substring(7);
         Claims claims = jwtProvider.getClaims(token);
+
         String email = (String) claims.get("username");
         Member member = memberRepository.findMemberByUsername(email);
 
