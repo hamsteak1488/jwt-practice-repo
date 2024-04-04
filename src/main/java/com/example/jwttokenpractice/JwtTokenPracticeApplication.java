@@ -14,3 +14,4 @@ public class JwtTokenPracticeApplication {
 		SpringApplication.run(JwtTokenPracticeApplication.class, args);
 	}
 }
+1
