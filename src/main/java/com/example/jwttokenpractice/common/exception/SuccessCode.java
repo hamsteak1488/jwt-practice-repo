@@ -1,4 +1,4 @@
-package com.example.jwttokenpractice.exception;
+package com.example.jwttokenpractice.common.exception;
 
 import lombok.Getter;
 

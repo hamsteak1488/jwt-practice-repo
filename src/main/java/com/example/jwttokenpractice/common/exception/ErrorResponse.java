@@ -1,11 +1,10 @@
-package com.example.jwttokenpractice.exception;
+package com.example.jwttokenpractice.common.exception;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +76,6 @@ public class ErrorResponse {
                             error.getDefaultMessage())
                     ).collect(Collectors.toList());
         }
-        
-        //todo 현재 파일 다시 읽고 검사할 것
-
         @Builder
         FieldError(String field, String value, String reason) {
             this.field = field;

@@ -1,13 +1,13 @@
-package com.example.jwttokenpractice.exception;
+package com.example.jwttokenpractice.common.exception;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 public class ApiResponse<T> {
-    private T result;
-    private int resultCode;
-    private String resultMsg;
+    private final T result;
+    private final int resultCode;
+    private final String resultMsg;
 
     @Builder
     public ApiResponse(final T result, final int resultCode, final String resultMsg) {
