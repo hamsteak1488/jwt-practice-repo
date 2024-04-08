@@ -8,11 +8,16 @@ import java.util.HashMap;
 public class MemoryRefreshTokenManager implements RefreshTokenManager {
     HashMap<String, String> store = new HashMap<>();
 
-    public void putRefreshToken(String accessToken, String refreshToken) {
-        store.put(accessToken, refreshToken);
+    public void putRefreshToken(String username, String refreshToken) {
+        store.put(username, refreshToken);
     }
 
-    public String getRefreshToken(String accessToken) {
-        return store.get(accessToken);
+    public String getRefreshToken(String username) {
+        return store.get(username);
+    }
+
+    @Override
+    public void removeRefreshToken(String username) {
+        store.remove(username);
     }
 }

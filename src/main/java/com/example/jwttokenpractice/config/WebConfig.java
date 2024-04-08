@@ -1,6 +1,6 @@
 package com.example.jwttokenpractice.config;
 
-import com.example.jwttokenpractice.interceptor.AuthenticationInterceptor;
+import com.example.jwttokenpractice.auth.interceptor.AuthenticationInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

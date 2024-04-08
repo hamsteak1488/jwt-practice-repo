@@ -1,6 +1,7 @@
 package com.example.jwttokenpractice.common.exception;
 
 
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,18 +11,29 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    /*
+    모든 메서드는 반환할 때마다 ResponseEntity의 상태를 직접 적고 있다.
+    ErrorCode로부터 HttpStatus를 읽어 오는 것이 더 바람직한 방법인지 확인할 것.
+    */
     @ExceptionHandler(MemberExceptionHandler.class)
-    protected  ResponseEntity<ErrorResponse> handleMemberException(MemberExceptionHandler e) {
+    protected ResponseEntity<ErrorResponse> handleMemberException(MemberExceptionHandler e) {
         log.error("memberException", e);
         final ErrorResponse response = ErrorResponse.of(e.getErrorCode(), e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(JwtExceptionHandler.class)
+    protected ResponseEntity<ErrorResponse> handleJwtException(JwtExceptionHandler e) {
+        log.error("jwtException", e);
+        final ErrorResponse response = ErrorResponse.of(e.getErrorCode(), e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(NullPointerException.class)
     protected ResponseEntity<ErrorResponse> handleNullPointerException(NullPointerException e) {
         log.error("handleNullPointerException", e);
         final ErrorResponse response = ErrorResponse.of(ErrorCode.NULL_POINTER_ERROR, e.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ArithmeticException.class)
@@ -35,6 +47,6 @@ public class GlobalExceptionHandler {
     protected final ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex) {
         log.error("Exception", ex);
         final ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR, ex.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

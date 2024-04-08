@@ -10,5 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshTokenDto {
-    private Jwt jwt;
+    private String username;
+    private String refreshToken;
 }

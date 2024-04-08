@@ -23,8 +23,9 @@ public class JwtProvider {
     private final RSAKeyManager rsaKeyManager;
     private final RefreshTokenManager refreshTokenRepository;
 
-    private static final long ACCESS_TOKEN_EXPIRE_TIME_MILS = 1000 * 60 * 30;
-    private static final long REFRESH_TOKEN_EXPIRE_TIME_MILS = 1000 * 60 * 60;
+    private static final long MIN = 1000 * 60;
+    private static final long ACCESS_TOKEN_EXPIRE_TIME_MILS = MIN / 2;
+    private static final long REFRESH_TOKEN_EXPIRE_TIME_MILS = MIN * 60;
 
     public Jwt createJwt(Map<String, Object> claims) {
         String accessToken = createToken(claims, getExpireDateAccessToken());
@@ -47,24 +48,13 @@ public class JwtProvider {
                 .compact();
     }
 
-    public Claims getClaims(String token) {
+    public Claims getClaims(String token) throws ExpiredJwtException {
         PublicKey publicKey = rsaKeyManager.loadPublicKey();
-        try {
-            return (Claims) Jwts.parser()
-                    .verifyWith(publicKey)
-                    .build()
-                    .parse(token)
-                    .getPayload();
-
-        } catch (ExpiredJwtException e) {
-
-        } catch (MalformedJwtException e) {
-
-        } catch (Exception e) {
-
-        }
-
-        return null;
+        return (Claims) Jwts.parser()
+                .verifyWith(publicKey)
+                .build()
+                .parse(token)
+                .getPayload();
     }
 
     public Date getExpireDateAccessToken() {
