@@ -1,8 +1,8 @@
 package com.example.jwttokenpractice.auth;
 
 import com.example.jwttokenpractice.auth.dto.RefreshTokenDto;
-import com.example.jwttokenpractice.auth.dto.SigninRequestDto;
-import com.example.jwttokenpractice.auth.dto.SignoutRequestDto;
+import com.example.jwttokenpractice.auth.dto.LoginRequestDto;
+import com.example.jwttokenpractice.auth.dto.LogoutRequestDto;
 import com.example.jwttokenpractice.common.exception.ErrorCode;
 import com.example.jwttokenpractice.common.exception.JwtExceptionHandler;
 import com.example.jwttokenpractice.common.exception.MemberExceptionHandler;
@@ -26,11 +26,11 @@ public class AuthServiceImpl implements AuthService {
     private final RefreshTokenManager refreshTokenManager;
 
     @Override
-    public Jwt signin(SigninRequestDto signinRequestDto) {
-        Member member = memberRepository.findMemberByUsername(signinRequestDto.getUsername())
+    public Jwt login(LoginRequestDto loginRequestDto) {
+        Member member = memberRepository.findMemberByUsername(loginRequestDto.getUsername())
                 .orElseThrow(() -> new MemberExceptionHandler(ErrorCode.USERNAME_NOT_FOUND_ERROR));
 
-        if (!member.checkUsernamePassword(signinRequestDto.getUsername(), signinRequestDto.getPassword())) {
+        if (!member.checkUsernamePassword(loginRequestDto.getUsername(), loginRequestDto.getPassword())) {
             throw new MemberExceptionHandler(ErrorCode.PASSWORD_NOT_MATCH_ERROR);
         }
 
@@ -44,8 +44,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean signout(SignoutRequestDto signoutRequestDto) {
-        refreshTokenManager.removeRefreshToken(signoutRequestDto.getUsername());
+    public boolean logout(LogoutRequestDto logoutRequestDto) {
+        refreshTokenManager.removeRefreshToken(logoutRequestDto.getUsername());
         return true;
     }
 

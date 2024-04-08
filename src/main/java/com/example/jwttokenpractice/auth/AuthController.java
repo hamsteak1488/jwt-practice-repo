@@ -1,10 +1,10 @@
 package com.example.jwttokenpractice.auth;
 
 import com.example.jwttokenpractice.auth.dto.RefreshTokenDto;
-import com.example.jwttokenpractice.auth.dto.SignoutRequestDto;
+import com.example.jwttokenpractice.auth.dto.LogoutRequestDto;
 import com.example.jwttokenpractice.common.mail.MailService;
 import com.example.jwttokenpractice.jwt.Jwt;
-import com.example.jwttokenpractice.auth.dto.SigninRequestDto;
+import com.example.jwttokenpractice.auth.dto.LoginRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +20,18 @@ public class AuthController {
     private final MailService mailService;
 
     @PostMapping("/login")
-    public ResponseEntity<Jwt> login(SigninRequestDto signinRequestDto) {
+    public ResponseEntity<Jwt> login(LoginRequestDto loginRequestDto) {
 
         return new ResponseEntity<>(
-                authService.signin(signinRequestDto),
+                authService.login(loginRequestDto),
                 HttpStatus.OK
         );
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Boolean> logout(SignoutRequestDto signoutRequestDto) {
+    public ResponseEntity<Boolean> logout(LogoutRequestDto logoutRequestDto) {
         return new ResponseEntity<>(
-                authService.signout(signoutRequestDto),
+                authService.logout(logoutRequestDto),
                 HttpStatus.OK
         );
     }

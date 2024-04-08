@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SignoutRequestDto {
+public class LogoutRequestDto {
     private String username;
 }
