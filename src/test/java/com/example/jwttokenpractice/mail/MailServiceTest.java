@@ -5,13 +5,15 @@ import jakarta.mail.MessagingException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.UnsupportedEncodingException;
 
-
+@SpringBootTest
 public class MailServiceTest {
-    @Autowired private final MailService mailService;
+    private final MailService mailService;
 
+    @Autowired
     public MailServiceTest(MailService mailService) {
         this.mailService = mailService;
     }

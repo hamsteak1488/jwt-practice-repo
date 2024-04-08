@@ -4,10 +4,13 @@ import com.example.jwttokenpractice.member.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ModifyRequestDto {
+    private Long memberId;
     private String username;
     private String password;
     private String realname;
@@ -19,6 +22,7 @@ public class ModifyRequestDto {
 
     public Member toEntity() {
         return Member.builder()
+                .memberId(memberId)
                 .username(username)
                 .password(password)
                 .realname(realname)

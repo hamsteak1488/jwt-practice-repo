@@ -1,19 +1,16 @@
 package com.example.jwttokenpractice.auth;
 
+import com.example.jwttokenpractice.auth.dto.RefreshTokenDto;
+import com.example.jwttokenpractice.auth.dto.SignoutRequestDto;
 import com.example.jwttokenpractice.common.mail.MailService;
 import com.example.jwttokenpractice.jwt.Jwt;
 import com.example.jwttokenpractice.auth.dto.SigninRequestDto;
-import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequestMapping("auth")
@@ -25,21 +22,26 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Jwt> login(SigninRequestDto signinRequestDto) {
-        Jwt jwt = authService.signin(signinRequestDto);
 
-        if (jwt == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(jwt, HttpStatus.OK);
+        return new ResponseEntity<>(
+                authService.signin(signinRequestDto),
+                HttpStatus.OK
+        );
     }
 
-    @GetMapping("/mailtest")
-    public void testMail() {
-        try {
-            mailService.sendMail("woals1488@naver.com");
-        } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+    @PostMapping("/logout")
+    public ResponseEntity<Boolean> logout(SignoutRequestDto signoutRequestDto) {
+        return new ResponseEntity<>(
+                authService.signout(signoutRequestDto),
+                HttpStatus.OK
+        );
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<Jwt> refreshToken(RefreshTokenDto refreshTokenDto) {
+        return new ResponseEntity<>(
+                authService.refreshToken(refreshTokenDto),
+                HttpStatus.OK
+        );
     }
 }

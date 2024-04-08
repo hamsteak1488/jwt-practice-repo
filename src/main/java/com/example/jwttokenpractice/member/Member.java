@@ -3,9 +3,11 @@ package com.example.jwttokenpractice.member;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
+@DynamicUpdate // save 동작 시, null 필드는 반영하지 않고 update
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
     @Id

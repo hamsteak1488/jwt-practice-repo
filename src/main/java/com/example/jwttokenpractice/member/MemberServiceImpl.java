@@ -1,7 +1,7 @@
 package com.example.jwttokenpractice.member;
 
-import com.example.jwttokenpractice.auth.dto.SigninRequestDto;
-import com.example.jwttokenpractice.jwt.Jwt;
+import com.example.jwttokenpractice.common.exception.ErrorCode;
+import com.example.jwttokenpractice.common.exception.MemberExceptionHandler;
 import com.example.jwttokenpractice.member.dto.ModifyRequestDto;
 import com.example.jwttokenpractice.member.dto.RegisterRequestDto;
 import com.example.jwttokenpractice.member.dto.WithdrawRequestDto;
@@ -22,12 +22,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member findMember(String username) {
-        return memberRepository.findMemberByUsername(username);
+        return memberRepository.findMemberByUsername(username)
+                .orElseThrow(() -> new MemberExceptionHandler(ErrorCode.USERNAME_NOT_FOUND_ERROR));
     }
 
     @Override
     public boolean register(RegisterRequestDto dto) {
-        if (memberRepository.findMemberByUsername(dto.getUsername()) != null) {
+        if (memberRepository.findMemberByUsername(dto.getUsername()).isPresent()) {
             return false;
         }
 
@@ -37,30 +38,18 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean modify(ModifyRequestDto dto) {
-        Member member = memberRepository.findMemberByUsername(dto.getUsername());
-        if (member == null) {
-            return false;
-        }
+        Member member = memberRepository.findMemberByUsername(dto.getUsername())
+                .orElseThrow(() -> new MemberExceptionHandler(ErrorCode.USERNAME_NOT_FOUND_ERROR));
 
-        if (dto.getPassword() != null) {
-            // modify password of member entity
-        }
-        if (dto.getRealname() != null) {
-            // modify realname of member entity
-        }
-        //...
-        // 개선할 방법 찾기
-
-        memberRepository.save(member);
+        dto.setMemberId(member.getMemberId());
+        memberRepository.save(dto.toEntity());
         return true;
     }
 
     @Override
     public boolean withdraw(WithdrawRequestDto dto) {
-        Member member = memberRepository.findMemberByUsername(dto.getUsername());
-        if (member == null) {
-            return false;
-        }
+        Member member = memberRepository.findMemberByUsername(dto.getUsername())
+                .orElseThrow(() -> new MemberExceptionHandler(ErrorCode.USERNAME_NOT_FOUND_ERROR));
 
         memberRepository.delete(member);
         return true;

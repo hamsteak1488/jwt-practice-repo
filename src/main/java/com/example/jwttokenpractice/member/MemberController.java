@@ -1,5 +1,4 @@
 package com.example.jwttokenpractice.member;
-import com.example.jwttokenpractice.common.exception.ApiResponse;
 import com.example.jwttokenpractice.common.mail.MailService;
 import com.example.jwttokenpractice.member.dto.ModifyRequestDto;
 import com.example.jwttokenpractice.member.dto.RegisterRequestDto;
@@ -9,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +29,7 @@ public class MemberController {
         );
     }
 
-    @GetMapping("/registration")
+    @PostMapping("/registration")
     public ResponseEntity<Boolean> register(RegisterRequestDto dto) {
         return new ResponseEntity<>(
                 memberService.register(dto),
@@ -37,7 +37,7 @@ public class MemberController {
         );
     }
 
-    @GetMapping("/modification")
+    @PostMapping("/modification")
     public ResponseEntity<Boolean> modify(ModifyRequestDto dto) {
         return new ResponseEntity<>(
                 memberService.modify(dto),
@@ -45,7 +45,7 @@ public class MemberController {
         );
     }
 
-    @GetMapping("/withdrawal")
+    @PostMapping("/withdrawal")
     public ResponseEntity<Boolean> withdraw(WithdrawRequestDto dto) {
         return new ResponseEntity<>(
                 memberService.withdraw(dto),

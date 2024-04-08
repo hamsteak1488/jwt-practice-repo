@@ -2,7 +2,9 @@ package com.example.jwttokenpractice.jwt;
 
 import com.example.jwttokenpractice.auth.RSAKeyManager;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,14 +20,11 @@ import io.jsonwebtoken.security.Keys;
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
-    // 대칭 키 생성에 사용될 내용
-    public static final byte[] secret = "jm_secret_key12345678901234567890".getBytes();
-
-    // HMAC-SHA 알고리즘
-    private final Key hmacShaKey = Keys.hmacShaKeyFor(secret);
-
     private final RSAKeyManager rsaKeyManager;
     private final RefreshTokenManager refreshTokenRepository;
+
+    private static final long ACCESS_TOKEN_EXPIRE_TIME_MILS = 1000 * 60 * 30;
+    private static final long REFRESH_TOKEN_EXPIRE_TIME_MILS = 1000 * 60 * 60;
 
     public Jwt createJwt(Map<String, Object> claims) {
         String accessToken = createToken(claims, getExpireDateAccessToken());
@@ -50,21 +49,28 @@ public class JwtProvider {
 
     public Claims getClaims(String token) {
         PublicKey publicKey = rsaKeyManager.loadPublicKey();
-        return (Claims) Jwts.parser()
-                .verifyWith(publicKey)
-                .build()
-                .parse(token)
-                .getPayload();
+        try {
+            return (Claims) Jwts.parser()
+                    .verifyWith(publicKey)
+                    .build()
+                    .parse(token)
+                    .getPayload();
+
+        } catch (ExpiredJwtException e) {
+
+        } catch (MalformedJwtException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return null;
     }
 
     public Date getExpireDateAccessToken() {
-        // 1시간
-        long expireTimeMils = 1000 * 60 * 60;
-        return new Date(System.currentTimeMillis() + expireTimeMils);
+        return new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRE_TIME_MILS);
     }
     public Date getExpireDateRefreshToken() {
-        // 60일
-        long expireTimeMils = 1000L * 60 * 60 * 24 * 60;
-        return new Date(System.currentTimeMillis() + expireTimeMils);
+        return new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRE_TIME_MILS);
     }
 }

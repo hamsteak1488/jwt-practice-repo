@@ -1,11 +1,13 @@
 package com.example.jwttokenpractice.auth.dto;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SigninRequestDto {
+public class SignoutRequestDto {
     private String username;
-    private String password;
 }

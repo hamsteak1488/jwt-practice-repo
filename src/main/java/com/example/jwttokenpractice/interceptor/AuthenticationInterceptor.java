@@ -1,5 +1,7 @@
 package com.example.jwttokenpractice.interceptor;
 
+import com.example.jwttokenpractice.common.exception.ErrorCode;
+import com.example.jwttokenpractice.common.exception.MemberExceptionHandler;
 import com.example.jwttokenpractice.jwt.JwtProvider;
 import com.example.jwttokenpractice.member.Member;
 import com.example.jwttokenpractice.member.MemberRepository;
@@ -33,13 +35,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         String token = authorizationHeader.substring(7);
         Claims claims = jwtProvider.getClaims(token);
 
-        String email = (String) claims.get("username");
-        Member member = memberRepository.findMemberByUsername(email);
-
-        if (member == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return false;
-        }
+        String username = (String) claims.get("username");
+        Member member = memberRepository.findMemberByUsername(username)
+                .orElseThrow(() -> new MemberExceptionHandler(ErrorCode.USERNAME_NOT_FOUND_ERROR));
 
         return true;
     }

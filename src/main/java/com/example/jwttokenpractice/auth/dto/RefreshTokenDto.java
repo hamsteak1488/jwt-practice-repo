@@ -1,6 +1,6 @@
-package com.example.jwttokenpractice.member.dto;
+package com.example.jwttokenpractice.auth.dto;
 
-import com.example.jwttokenpractice.member.Member;
+import com.example.jwttokenpractice.jwt.Jwt;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class WithdrawRequestDto {
-    private String username;
+public class RefreshTokenDto {
+    private Jwt jwt;
 }

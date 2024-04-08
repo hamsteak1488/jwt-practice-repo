@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class JwtTokenPracticeApplicationTests {
 
-	@Autowired
 	private final JwtProvider jwtProvider;
 
+	@Autowired
     JwtTokenPracticeApplicationTests(JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
     }
