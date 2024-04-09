@@ -12,8 +12,10 @@ import java.io.UnsupportedEncodingException;
 
 @Component
 @RequiredArgsConstructor
-public class MemberRegisterMailService implements MailService {
+public class MailServiceImpl implements MailService {
     private final JavaMailSender javaMailSender;
+    private static final String SENDER_EMAIL = "ssafywoals@gmail.com";
+    private static final String SENDER_NAME = "Mirae Mail Sender";
     @Override
     public MimeMessage createMessage(String recipientEmail, String title, String htmlContent) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -21,7 +23,7 @@ public class MemberRegisterMailService implements MailService {
         message.addRecipients(Message.RecipientType.TO, recipientEmail);
         message.setSubject(title);
         message.setText(htmlContent, "utf-8", "html");
-        message.setFrom(new InternetAddress("ssafywoals@gmail.com", "Mirae Mail Sender"));
+        message.setFrom(new InternetAddress(SENDER_EMAIL, SENDER_NAME));
 
         return message;
     }
