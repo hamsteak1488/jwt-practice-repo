@@ -1,7 +1,5 @@
 package com.example.jwttokenpractice.common.exception;
 
-
-import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
