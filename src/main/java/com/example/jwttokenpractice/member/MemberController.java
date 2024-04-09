@@ -1,5 +1,6 @@
 package com.example.jwttokenpractice.member;
 import com.example.jwttokenpractice.common.mail.MailService;
+import com.example.jwttokenpractice.member.dto.ConfirmEmailDto;
 import com.example.jwttokenpractice.member.dto.ModifyRequestDto;
 import com.example.jwttokenpractice.member.dto.RegisterRequestDto;
 import com.example.jwttokenpractice.member.dto.WithdrawRequestDto;
@@ -30,25 +31,33 @@ public class MemberController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<Boolean> register(RegisterRequestDto dto) {
+    public ResponseEntity<Boolean> register(RegisterRequestDto registerRequestDto) {
         return new ResponseEntity<>(
-                memberService.register(dto),
+                memberService.register(registerRequestDto),
                 HttpStatus.OK
         );
     }
 
     @PostMapping("/modification")
-    public ResponseEntity<Boolean> modify(ModifyRequestDto dto) {
+    public ResponseEntity<Boolean> modify(ModifyRequestDto modifyRequestDto) {
         return new ResponseEntity<>(
-                memberService.modify(dto),
+                memberService.modify(modifyRequestDto),
                 HttpStatus.OK
         );
     }
 
     @PostMapping("/withdrawal")
-    public ResponseEntity<Boolean> withdraw(WithdrawRequestDto dto) {
+    public ResponseEntity<Boolean> withdraw(WithdrawRequestDto withdrawRequestDtoto) {
         return new ResponseEntity<>(
-                memberService.withdraw(dto),
+                memberService.withdraw(withdrawRequestDtoto),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/email-confirm")
+    public ResponseEntity<Boolean> confirmEmail(ConfirmEmailDto confirmEmailDto) {
+        return new ResponseEntity<>(
+                memberService.confirmEmail(confirmEmailDto),
                 HttpStatus.OK
         );
     }

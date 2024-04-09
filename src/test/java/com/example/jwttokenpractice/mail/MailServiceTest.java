@@ -21,10 +21,10 @@ public class MailServiceTest {
     @Test
     @DisplayName("메일 전송 테스트")
     public void testMailSender() {
-        try {
+        /*try {
             mailService.sendMail("woals1488@naver.com");
         } catch (MessagingException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 }

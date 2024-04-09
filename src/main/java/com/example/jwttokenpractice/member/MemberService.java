@@ -1,5 +1,6 @@
 package com.example.jwttokenpractice.member;
 
+import com.example.jwttokenpractice.member.dto.ConfirmEmailDto;
 import com.example.jwttokenpractice.member.dto.ModifyRequestDto;
 import com.example.jwttokenpractice.member.dto.RegisterRequestDto;
 import com.example.jwttokenpractice.member.dto.WithdrawRequestDto;
@@ -13,4 +14,6 @@ public interface MemberService {
     boolean register(RegisterRequestDto dto);
     boolean modify(ModifyRequestDto dto);
     boolean withdraw(WithdrawRequestDto dto);
+
+    boolean confirmEmail(ConfirmEmailDto confirmEmailDto);
 }

@@ -62,4 +62,7 @@ public class Member {
         return true;
     }
 
+    public void updateStatus(String status) {
+        this.status = status;
+    }
 }
