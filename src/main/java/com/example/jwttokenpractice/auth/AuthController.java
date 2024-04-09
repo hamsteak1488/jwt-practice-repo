@@ -21,7 +21,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Jwt> login(LoginRequestDto loginRequestDto) {
-
         return new ResponseEntity<>(
                 authService.login(loginRequestDto),
                 HttpStatus.OK
