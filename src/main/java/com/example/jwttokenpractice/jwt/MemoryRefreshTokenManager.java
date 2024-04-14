@@ -9,8 +9,8 @@ public class MemoryRefreshTokenManager implements RefreshTokenManager {
     HashMap<String, String> store = new HashMap<>();
 
     @Override
-    public void putRefreshToken(String username, String refreshToken) {
-        store.put(username, refreshToken);
+    public void putRefreshToken(String username, String uuid) {
+        store.put(username, uuid);
     }
 
     @Override
