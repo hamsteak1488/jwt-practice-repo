@@ -8,10 +8,7 @@ import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -47,11 +44,11 @@ public class MemberController {
     }
 
     @PostMapping("/withdrawal")
-    public ResponseEntity<Boolean> withdraw(WithdrawRequestDto withdrawRequestDtoto) {
-        return new ResponseEntity<>(
-                memberService.withdraw(withdrawRequestDtoto),
-                HttpStatus.OK
-        );
+    //public ResponseEntity<Boolean> withdraw(WithdrawRequestDto withdrawRequestDto) {
+    public ResponseEntity<Boolean> withdraw(@RequestAttribute String username) {
+        System.out.println(username);
+
+        return null;
     }
 
     @GetMapping("/email-confirm")

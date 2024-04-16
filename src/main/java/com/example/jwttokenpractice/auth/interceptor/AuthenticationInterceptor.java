@@ -43,6 +43,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         memberRepository.findMemberByUsername(username)
                 .orElseThrow(() -> new MemberExceptionHandler(ErrorCode.USERNAME_NOT_FOUND_ERROR));
 
+        request.setAttribute("username", username);
+        //request.getParameterMap().put("username", new String[]{username});
+
         return true;
     }
 
