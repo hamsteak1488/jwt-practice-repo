@@ -24,8 +24,8 @@ public class JwtProvider {
     private final RefreshTokenManager refreshTokenRepository;
 
     private static final long MIN = 1000 * 60;
-    private static final long ACCESS_TOKEN_EXPIRE_TIME_MILS = MIN * 5;
-    private static final long REFRESH_TOKEN_EXPIRE_TIME_MILS = MIN * 60;
+    private static final long ACCESS_TOKEN_EXPIRE_TIME_MILS = MIN * 60;
+    private static final long REFRESH_TOKEN_EXPIRE_TIME_MILS = MIN * 600;
 
     public Jwt createJwt(Map<String, Object> claims) {
         String accessToken = createToken(claims, getExpireDateAccessToken());
