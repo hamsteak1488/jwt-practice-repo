@@ -27,8 +27,6 @@ public class JwtProvider {
         String accessToken = createToken(claims, getExpireDateAccessToken());
         String refreshToken = createToken(new HashMap<>(), getExpireDateRefreshToken());
 
-        refreshTokenRepository.putRefreshToken(accessToken, refreshToken);
-
         return Jwt.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)

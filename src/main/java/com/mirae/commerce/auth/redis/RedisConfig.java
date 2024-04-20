@@ -1,5 +1,4 @@
-/*
-package com.example.jwttokenpractice.jwt;
+package com.mirae.commerce.auth.redis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,10 +8,10 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 
 @Configuration
 public class RedisConfig {
-    @Value("${spring.data.redis.host")
+    @Value("${spring.data.redis.host}")
     private String host;
 
-    @Value("${spring.data.redis.port")
+    @Value("${spring.data.redis.port}")
     private int port;
 
     @Bean
@@ -20,4 +19,3 @@ public class RedisConfig {
         return new LettuceConnectionFactory(host, port);
     }
 }
-*/

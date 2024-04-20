@@ -1,5 +1,4 @@
-/*
-package com.example.jwttokenpractice.jwt;
+package com.mirae.commerce.auth.redis;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,4 +16,3 @@ public class RefreshToken {
 
     private String refreshToken;
 }
-*/

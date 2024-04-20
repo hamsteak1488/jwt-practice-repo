@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
 
         refreshTokenManager.putRefreshToken(member.getUsername(), jwt.getRefreshToken());
 
-        return jwtProvider.createJwt(claims);
+        return jwt;
     }
 
     @Override
@@ -73,6 +73,6 @@ public class AuthServiceImpl implements AuthService {
 
         refreshTokenManager.putRefreshToken(refreshTokenDto.getUsername(), jwt.getRefreshToken());
 
-        return jwtProvider.createJwt(claims);
+        return jwt;
     }
 }

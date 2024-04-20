@@ -1,13 +1,15 @@
-/*
-package com.example.jwttokenpractice.jwt;
+package com.mirae.commerce.auth.redis;
 
+import com.mirae.commerce.auth.jwt.RefreshTokenManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+@Primary
 @Component
 @RequiredArgsConstructor
 public class RedisRefreshTokenManager implements RefreshTokenManager {
-    private RedisRefreshTokenRepository redisRefreshTokenRepository;
+    private final RedisRefreshTokenRepository redisRefreshTokenRepository;
 
     @Override
     public void putRefreshToken(String username, String uuid) {
@@ -24,4 +26,3 @@ public class RedisRefreshTokenManager implements RefreshTokenManager {
         redisRefreshTokenRepository.deleteById(username);
     }
 }
-*/
