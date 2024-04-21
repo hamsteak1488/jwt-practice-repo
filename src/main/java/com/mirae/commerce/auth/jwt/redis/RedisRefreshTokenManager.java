@@ -1,4 +1,4 @@
-package com.mirae.commerce.auth.redis;
+package com.mirae.commerce.auth.jwt.redis;
 
 import com.mirae.commerce.auth.jwt.RefreshTokenManager;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +12,8 @@ public class RedisRefreshTokenManager implements RefreshTokenManager {
     private final RedisRefreshTokenRepository redisRefreshTokenRepository;
 
     @Override
-    public void putRefreshToken(String username, String uuid) {
-        redisRefreshTokenRepository.save(new RefreshToken(uuid, username));
+    public void putRefreshToken(String username, String refreshToken) {
+        redisRefreshTokenRepository.save(new RefreshToken(username, refreshToken));
     }
 
     @Override

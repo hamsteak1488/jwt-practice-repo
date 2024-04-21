@@ -1,10 +1,11 @@
 package com.mirae.commerce.member.controller;
+import com.mirae.commerce.auth.jwt.LoginUsername;
+import com.mirae.commerce.auth.utils.UserContextHolder;
 import com.mirae.commerce.member.entity.Member;
 import com.mirae.commerce.member.service.MemberService;
 import com.mirae.commerce.member.dto.ConfirmEmailDto;
 import com.mirae.commerce.member.dto.ModifyRequestDto;
 import com.mirae.commerce.member.dto.RegisterRequestDto;
-import com.mirae.commerce.member.dto.WithdrawRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,14 +46,9 @@ public class MemberController {
     }
 
     @PostMapping("/withdrawal")
-    public ResponseEntity<Boolean> withdraw(WithdrawRequestDto withdrawRequestDto) {
-        String username = (String) RequestContextHolder.getRequestAttributes().getAttribute("username", RequestAttributes.SCOPE_REQUEST);
-        withdrawRequestDto.setUsername(username);
-        if (username == null) {
-            throw new RuntimeException();
-        }
+    public ResponseEntity<Boolean> withdraw(@LoginUsername String username) {
         return new ResponseEntity<>(
-                memberService.withdraw(withdrawRequestDto),
+                memberService.withdraw(username),
                 HttpStatus.OK
         );
     }

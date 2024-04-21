@@ -1,5 +1,6 @@
 package com.mirae.commerce.auth.interceptor;
 
+import com.mirae.commerce.auth.utils.UserContextHolder;
 import com.mirae.commerce.common.dto.ErrorCode;
 import com.mirae.commerce.auth.exception.JwtExceptionHandler;
 import com.mirae.commerce.member.exception.MemberExceptionHandler;
@@ -44,6 +45,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 .orElseThrow(() -> new MemberExceptionHandler(ErrorCode.USERNAME_NOT_FOUND_ERROR));
 
         request.setAttribute("username", username);
+
+        UserContextHolder.setCurrentUsername(username);
 
         return true;
     }

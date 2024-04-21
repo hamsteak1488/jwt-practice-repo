@@ -1,7 +1,7 @@
 package com.mirae.commerce.redis;
 
 
-import com.mirae.commerce.auth.redis.RedisRefreshTokenManager;
+import com.mirae.commerce.auth.jwt.redis.RedisRefreshTokenManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +19,6 @@ public class RedisTest {
         String val = "val1";
         redisRefreshTokenManager.putRefreshToken(key, val);
         String resultVal = redisRefreshTokenManager.getRefreshToken(key);
-        Assertions.assertThat(resultVal).isEqualTo(key);
+        Assertions.assertThat(resultVal).isEqualTo(val);
     }
 }

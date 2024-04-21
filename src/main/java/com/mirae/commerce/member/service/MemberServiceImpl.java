@@ -9,7 +9,6 @@ import com.mirae.commerce.common.config.WebConfig;
 import com.mirae.commerce.member.dto.ConfirmEmailDto;
 import com.mirae.commerce.member.dto.ModifyRequestDto;
 import com.mirae.commerce.member.dto.RegisterRequestDto;
-import com.mirae.commerce.member.dto.WithdrawRequestDto;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -74,8 +73,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean withdraw(WithdrawRequestDto withdrawRequestDto) {
-        Member member = memberRepository.findMemberByUsername(withdrawRequestDto.getUsername())
+    public boolean withdraw(String username) {
+        Member member = memberRepository.findMemberByUsername(username)
                 .orElseThrow(() -> new MemberExceptionHandler(ErrorCode.USERNAME_NOT_FOUND_ERROR));
 
         memberRepository.delete(member);

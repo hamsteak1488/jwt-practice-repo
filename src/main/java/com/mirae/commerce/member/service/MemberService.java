@@ -4,7 +4,6 @@ import com.mirae.commerce.member.entity.Member;
 import com.mirae.commerce.member.dto.ConfirmEmailDto;
 import com.mirae.commerce.member.dto.ModifyRequestDto;
 import com.mirae.commerce.member.dto.RegisterRequestDto;
-import com.mirae.commerce.member.dto.WithdrawRequestDto;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public interface MemberService {
 
     boolean register(RegisterRequestDto dto);
     boolean modify(ModifyRequestDto dto);
-    boolean withdraw(WithdrawRequestDto dto);
+    boolean withdraw(String username);
 
     boolean confirmEmail(ConfirmEmailDto confirmEmailDto);
 }
